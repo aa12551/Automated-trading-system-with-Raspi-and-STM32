@@ -1,0 +1,3 @@
+ILI9341_Touch.c:3:9:ili9341_touch_pressed	8	static
+ILI9341_Touch.c:11:6:ili9341_coordinate_transform	32	static
+ILI9341_Touch.c:22:26:ili9341_touch_coordinate	56	static
