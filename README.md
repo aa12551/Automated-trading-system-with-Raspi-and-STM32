@@ -1,44 +1,49 @@
-# 程式交易執行於樹梅派及stm32
+# Automated trading system with Raspi and STM32
 
-## 目的
-  可以將程式交易嵌入於樹梅派中，及使用stm32與ili9341的觸控板做出real time的監控與互動
+## Description
+  We implement program trading and trading strategies on low-power devices such as Raspi and stm32. We also use a LCD to show the current price and the target price.
+  And developed a touch function to interact with users.
   
 
-## 所需硬體
+## Hardware
 1. stm32f407
 2. raspi 4b 
-3. ili9341 2.8吋觸控螢幕
+3. ili9341 2.8 inch touch LCD
 
-## 硬體架構
-實際接線情況
+## Hardware architecture
+- The following picture is the actual status of this system.
 
 ![image](https://user-images.githubusercontent.com/94910883/189954992-e7d7dc5f-f16a-47da-a865-a8e1cd7bb37e.png)
 
-硬體連接與溝通
+- And The following picture is the block diagram of hardware and the protocol of communication between each hardware.
 
 ![image](https://user-images.githubusercontent.com/94910883/189955105-e7c7a6ec-6f14-4ba5-abea-2038f2430165.png)
 
-## 個別硬體功能
-**raspi**
-1. 自動判別價格完成自動交易
-2. 回傳目前價格至stm32
-3. 策略計算目標價
-4. 接收stm32f407的訊息，做出對應的事件
-5. 紀錄交易功能
+## Software architecture
+- We use `Python` to complete the program trading and use `linux` operating system in `Raspi`.
+- we use `C` to complete all of the function we need in `STM32` and `ili9341` and use `FreeRTOS` to schedule our task.
 
-**stm32f407**
-1. 接收目前價格並傳送給螢幕
-2. 接收螢幕的觸控資訊
-3. 控制螢幕相關功能
+## Individual Hardware function
+- **Raspi**
+  - Automatically determine the price to complete the automatic transaction.
+  - Return the current price to stm32.
+  - Using the strategy we want to calculate the target price.
+  - Record the information about each transaction.
+- **stm32f407**
+  - Receive current price and send to screen.
+  - Receive touch information from the screen.
+  - Control screen related functions.
+- **ili9341**
+  - Show current price and target price
+  - Send touch information to stm32f407
 
-**ili9341**
-1. 顯示目前價格與計算的目標價格
-2. 傳送觸控資訊至stm32f407
+## System function
+- You can set the target price by yourself or add a strategy to complete the automatic transaction.
+- Can display current price and target price on LCD
+- Can record transaction information
+- If there is a problem with the execution of the program, you can use the touch panel to stop the transaction immediately
 
-## 已實現功能
-1. 可以自行設定目標價格或是加入策略去完成自動交易
-2. 可以顯示目前價格與目標價格
-3. 可以記錄交易過的資訊
-4. 如果程式執行出現問題，可以使用觸控面板立即停止交易
-
-
+## Demonstration
+- Send real-time data and display the calculated target price on the LCD screen : [Link1](https://drive.google.com/file/d/1-3HL2YoC4UqSyhcSqwcnd40Iw1uwBT8f/view?usp=share_link)
+- Automatically place an order when the target price is reached (I use MAX exchange and set a price to let it place an order) : [Link2](https://drive.google.com/file/d/1BMO069nQI68K2mcI1surpjyYB-8r1zLU/view?usp=share_link)
+- Stop the program in time when encountering a problem : [Link3](https://drive.google.com/file/d/1vHneD14yBO0fOCm6lheR3ivz3ThmFFqy/view?usp=share_link)
